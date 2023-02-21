@@ -9,4 +9,4 @@ Recode function printf of C Standard Library and get famliliar with the concept 
 ## Usage
 
 ```make``` without bonus functions\
-```make bonus``` to compile with bonus.
+```make bonus``` to compile with bonus
