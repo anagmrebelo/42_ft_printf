@@ -3,52 +3,54 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
+#    By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:23:30 by arebelo           #+#    #+#              #
-#    Updated: 2023/02/21 19:51:36 by arebelo          ###   ########.fr        #
+#    Updated: 2023/02/22 01:04:49 by anarebelo        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # NAME
 # **************************************************************************** #
-NAME		= libftprintf.a
+NAME				= libftprintf.a
+NAME_BONUS			= libftprintf_bonus.a
 
 # FILES
 # **************************************************************************** #
 
-SRCS 		= clean_struct.c\
-			conversions_first.c\
-			conversions_last.c\
-			conversions_main.c\
-			counter_funcs.c\
-			ft_putnbr_base_x.c\
-			ft_putnbr_x.c\
-			ft_putnbr_xu.c\
-			is_id.c\
-			libftprintf.c\
-			print_mfw.c\
-			putstr_limited.c\
-			print_percent.c
+FILES 				= clean_struct.c\
+					conversions_first.c\
+					conversions_last.c\
+					conversions_main.c\
+					counter_funcs.c\
+					ft_putnbr_base_x.c\
+					ft_putnbr_x.c\
+					ft_putnbr_xu.c\
+					is_id.c\
+					libftprintf.c\
+					print_mfw.c\
+					putstr_limited.c\
+					print_percent.c
 
-SRCS_BONUS 	= clean_struct.c\
-			conversions_first.c\
-			conversions_last.c\
-			conversions_main_bonus.c\
-			counter_funcs.c\
-			ft_putnbr_base_x.c\
-			ft_putnbr_x.c\
-			ft_putnbr_xu.c\
-			is_id.c\
-			libftprintf.c\
-			print_mfw.c\
-			putstr_limited.c\
-			print_percent.c
+FILES_BONUS			= clean_struct.c\
+					conversions_first.c\
+					conversions_last.c\
+					conversions_main_bonus.c\
+					counter_funcs.c\
+					ft_putnbr_base_x.c\
+					ft_putnbr_x.c\
+					ft_putnbr_xu.c\
+					is_id.c\
+					libftprintf.c\
+					print_mfw.c\
+					putstr_limited.c\
+					print_percent.c
 
-OBJS				=${addprefix ${OBJS_DIR}, ${SRCS:.c=.o}}
-OBJS_BONUS			=${addprefix ${OBJS_DIR}, ${SRCS:.c=.o}}
-DEPS				=${addprefix ${OBJS_DIR}, ${SRCS:.c=.d}}
-DEPS_BONUS			=${addprefix ${OBJS_DIR}, ${SRCS:.c=.d}}
+SRCS				=${addprefix ${SRCS_DIR}, ${FILES:.c=.o}}
+OBJS				=${addprefix ${OBJS_DIR}, ${FILES:.c=.o}}
+OBJS_BONUS			=${addprefix ${OBJS_DIR}, ${FILES:.c=.o}}
+DEPS				=${addprefix ${OBJS_DIR}, ${FILES:.c=.d}}
+DEPS_BONUS			=${addprefix ${OBJS_DIR}, ${FILES:.c=.d}}
 
 # DIRECTORY
 # **************************************************************************** #
@@ -73,34 +75,41 @@ RN 					= ranlib
 
 # RULES
 # **************************************************************************** #
-all:	${NAME}
+all:	make_libft ${NAME}
 
 $(OBJS_DIR)%.o:	$(SRCS_DIR)%.c
 					@mkdir -p $(dir $@)
 					$(CC) $(CFLAGS) $(DEPFLAGS) $(INCLUDE) $< -o $@
 
 make_libft:
-					make -C $(LIBFT_DIR)
+					@make -C $(LIBFT_DIR)
 
-${NAME}:	make_libft ${OBJS} ${LIBS_EXEC}
-					${AR} ${NAME} ${OBJS} ${LIBS_EXEC}
+${NAME}:	${OBJS}
+					cp libft/libft.a .
+					mv libft.a ${NAME}
+					${AR} ${NAME} ${OBJS}
 					${RN} ${NAME}
 
-bonus:	make_libft ${OBJS_BONUS}
+bonus:	make_libft ${NAME_BONUS}
+
+${NAME_BONUS}: ${OBJS_BONUS}
+					@cp libft/libft.a .
+					@mv libft.a ${NAME_BONUS}
 					${AR} ${NAME} ${OBJS_BONUS}
-					${RN} ${NAME}
+					${RN} ${NAME_BONUS}
 
 clean:
-					${RM} ${OBJS_DIR}
+					@${RM} ${OBJS_DIR}
 					@${MAKE} -C ${LIBFT_DIR} clean
 
 fclean:	clean
-					${RM} ${NAME}
+					@${RM} ${NAME}
+					@${RM} ${NAME_BONUS}
 					@${MAKE} -C ${LIBFT_DIR} fclean
 
 re:	fclean all
 
--include ${DEPS}
--include ${DEPS_BONUS}
+ -include ${DEPS}
+ -include ${DEPS_BONUS}
 
 .PHONY:		all clean fclean re

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 15:01:21 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/21 17:25:45 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/21 22:01:41 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char			*ptr;
-	unsigned long	counter;
 	unsigned long	size;
 
-	counter = 0;
 	if (!s1 || !s2)
 		return (0);
 	size = ft_strlen(s1) + ft_strlen(s2);

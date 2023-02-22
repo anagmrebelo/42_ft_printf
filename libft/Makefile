@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/14 18:55:27 by arebelo           #+#    #+#              #
-#    Updated: 2023/02/21 19:37:39 by arebelo          ###   ########.fr        #
+#    Updated: 2023/02/21 17:51:20 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ FILES				= ft_atoi.c\
 					ft_lstnew.c\
 					ft_lstsize.c
 
+SRCS				=${addprefix ${SRCS_DIR}, ${FILES:.c=.o}}
 OBJS				=${addprefix ${OBJS_DIR}, ${FILES:.c=.o}}
 DEPS				=${addprefix ${OBJS_DIR}, ${FILES:.c=.d}}
 
@@ -95,10 +96,10 @@ ${NAME}:		${OBJS}
 					${RN} ${NAME}
 
 clean:
-			@${RM} ${OBJS_DIR}
+			${RM} ${OBJS_DIR}
 
 fclean:		clean
-			@${RM} ${NAME}
+			${RM} ${NAME}
 
 re:			fclean all
 
